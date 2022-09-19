@@ -14,12 +14,13 @@ go get github.com/msaf1980/go-mpool
 
 ## Example
 
-Non thread-safe Pool (don't share with multiple goroutines)
+MPool (allocation-free and lock-free memory pool)
+Pool (Allocation-free memory pool, not thread-safe)
 
 ```go
 
 // Create 10 pools of `*bytes.Buffer`
-pools := Pool.NewPool(10, func() interface{} {
+pools := Pool.NewMPool(10, func() interface{} {
     return &bytes.Buffer{}
 })
 
@@ -44,8 +45,9 @@ pools.Put(pool2)    // Return pool2 to pools
 goarch: amd64
 pkg: github.com/msaf1980/go-mpool
 cpu: Intel(R) Core(TM) i5-9400F CPU @ 2.90GHz
-BenchmarkPool-6    	201133738	         5.981 ns/op	       0 B/op	       0 allocs/op
-BenchmarkSyncPool-6   	31321465	        38.38 ns/op	       0 B/op	       0 allocs/op
+BenchmarkMPool-6      	201046626	         5.965 ns/op	       0 B/op	       0 allocs/op
+BenchmarkPool-6       	196496100	         5.976 ns/op	       0 B/op	       0 allocs/op
+BenchmarkSyncPool-6   	31270672	        38.59 ns/op	       0 B/op	       0 allocs/op
 PASS
 ```
 
