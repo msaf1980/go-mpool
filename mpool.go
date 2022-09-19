@@ -5,14 +5,14 @@ import (
 )
 
 // Pool is base Pool structor
-type Pool struct {
+type MPool struct {
 	fn          func() interface{}
 	stack       *stack.Stack
 	initialSize int
 }
 
 // NewPool returns Pool instance
-func NewPool(uSize uint, fn func() interface{}) *MPool {
+func NewMPool(uSize uint, fn func() interface{}) *MPool {
 	iSize := int(uSize)
 
 	s := stack.NewStack()
@@ -28,7 +28,7 @@ func NewPool(uSize uint, fn func() interface{}) *MPool {
 }
 
 // Get takes out of the pool
-func (g *Pool) Get() *stack.Node {
+func (g *MPool) Get() *stack.Node {
 	for {
 		node, err := g.stack.Pop()
 		if err != nil {
@@ -39,24 +39,24 @@ func (g *Pool) Get() *stack.Node {
 	}
 }
 
-func (g *Pool) upscale() {
+func (g *MPool) upscale() {
 	for i := 0; i < g.initialSize; i++ {
 		g.stack.Push(stack.NewNode(g.fn()))
 	}
 }
 
 // Put puts node to pool
-func (g *Pool) Put(node *stack.Node) {
+func (g *MPool) Put(node *stack.Node) {
 	g.stack.Push(node)
 }
 
 // Cap returns current capacity of pool
-func (g *Pool) Cap() int {
+func (g *MPool) Cap() int {
 	return g.stack.Cap()
 }
 
 // DestPool destroys all pools
-func (g *Pool) DestPool() {
+func (g *MPool) DestPool() {
 	for !g.stack.IsEmpty() {
 		g.stack.Pop()
 	}

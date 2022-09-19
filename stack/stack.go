@@ -22,19 +22,6 @@ func NewStack() *Stack {
 	}
 }
 
-// Node is the item of stack
-type Node struct {
-	next  *Node
-	Value interface{}
-}
-
-// NewNode returns Node instance
-func NewNode(value interface{}) *Node {
-	return &Node{
-		Value: value,
-	}
-}
-
 // Push appends value into the stack
 func (s *Stack) Push(newHead *Node) {
 	newHead.next = s.head
