@@ -1,4 +1,4 @@
-package Pool
+package mpool
 
 import (
 	"github.com/msaf1980/go-mpool/stack"

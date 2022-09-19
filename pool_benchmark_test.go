@@ -1,4 +1,4 @@
-package Pool
+package mpool
 
 import (
 	"bytes"
